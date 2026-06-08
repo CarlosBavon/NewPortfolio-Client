@@ -13,8 +13,8 @@ const Home = () => {
     const { showSuccess, showError } = useToast();
 
     useEffect(() => {
-        axios.get('/api/projects').then(res => setProjects(res.data));
-        axios.get('/api/github/stats')
+        api.get('/api/projects').then(res => setProjects(res.data));
+        api.get('/api/github/stats')
             .then(res => setGithubStats(res.data))
             .catch(err => console.error('GitHub stats error:', err));
     }, []);
@@ -23,7 +23,7 @@ const Home = () => {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const response = await axios.post('/api/contact', contactForm);
+            const response = await api.post('/api/contact', contactForm);
             if (response.data.success) {
                 showSuccess(response.data.message);
                 setContactForm({ name: '', email: '', message: '' });
@@ -43,7 +43,7 @@ const Home = () => {
         if (!newsletterEmail) return;
         setIsSubmitting(true);
         try {
-            const response = await axios.post('/api/newsletter', { email: newsletterEmail });
+            const response = await api.post('/api/newsletter', { email: newsletterEmail });
             if (response.data.success) {
                 showSuccess(response.data.message);
                 setNewsletterEmail('');
@@ -80,7 +80,7 @@ const Home = () => {
                 <div className="container">
                     <div className="about-grid">
                         <div className="about-content">
-                            <h1 style={{marginBottom: "100px"}}>About Me</h1>
+                            <h1 style={{ marginBottom: "100px" }}>About Me</h1>
                             <h2>Who Am I?</h2>
                             <p>I’m Bavon, a passionate Web & App Developer who transforms ideas into digital realities. With a strong eye for design and a love for functionality, I craft solutions that blend beauty and performance.</p>
                             <h2>My Approach</h2>
@@ -130,7 +130,7 @@ const Home = () => {
 
             <section id="contact" className="contact section">
                 <div className="container">
-                    <h2 style={{textAlign: "center", marginBottom: "50px"}}>Let's Work Together</h2>
+                    <h2 style={{ textAlign: "center", marginBottom: "50px" }}>Let's Work Together</h2>
                     <div className="contact-wrapper">
                         <form className="contact-form" onSubmit={handleContactSubmit}>
                             <input
